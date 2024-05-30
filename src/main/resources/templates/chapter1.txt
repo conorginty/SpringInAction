@@ -1,0 +1,2 @@
+This folder is where you’ll place template files that will be used to render content to the browser (e.g. a
+Thymeleaf template).

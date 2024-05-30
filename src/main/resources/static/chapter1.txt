@@ -1,0 +1,2 @@
+This folder is where you can place any static content (images, stylesheets, JavaScript, and so forth) that
+you want to serve to the browser.
