@@ -14,8 +14,8 @@ Spring MVC application. More specifically, in this case, it arranges for HomeCon
 Spring MVC so that you can send requests to it. @WebMvcTest also sets up Spring support for testing Spring MVC.
 Although it could be made to start a server, mocking the mechanics of Spring MVC is sufficient for our purposes.
 The test class is injected with a MockMvc object for the test to drive the mockup. */
-@WebMvcTest(HomeController.class) // Web test for HomeController
-public class HomeControllerTest {
+@WebMvcTest(WebConfig.class) // Web test for HomeController
+public class WebConfigTest {
 
     @Autowired
     private MockMvc mockMvc; // performs the request for our below test
