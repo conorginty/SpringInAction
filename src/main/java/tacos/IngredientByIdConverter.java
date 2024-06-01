@@ -3,8 +3,6 @@ package tacos;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
-import java.util.Optional;
-
 /* Spring Boot autoconfiguration will discover this Converter bean, and will automatically register it with
 Spring MVC to be used when the conversion of relevant request parameters to bound properties is needed. */
 @Component

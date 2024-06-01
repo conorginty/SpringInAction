@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
+import java.util.Date;
+
 @Slf4j
 @Controller
 @RequestMapping("/orders")
@@ -38,8 +40,9 @@ public class OrderController {
             return "orderForm";
         }
 
-        orderRepository.save(tacoOrder);
-        log.info("Taco order complete: {}", tacoOrder);
+        tacoOrder.setPlacedAt(new Date());
+//        orderRepository.save(tacoOrder);
+        log.info("Taco order complete BUT NOT SAVED FOR THE MOMENT DUE TO BUG: {}", tacoOrder);
         sessionStatus.setComplete(); // ensures the session is cleaned up and ready for a new order the next time the user creates a taco.
 
         return "redirect:/";

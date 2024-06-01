@@ -5,16 +5,32 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 import org.hibernate.validator.constraints.CreditCardNumber;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Table;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date; // The book doesn't specify which library - the 2nd option is to use java.sql's Date class... will change if necessary
+import java.util.Date;
 import java.util.List;
 
 @Data
+/* @Table annotation is completely optional. By default, the object is mapped to a table based on the domain class name.
+In this case, TacoOrder is mapped to a table named "Taco_Order". If that’s fine, you can leave the @Table annotation
+out completely, or use it without parameters. But we can map it to a different table name, by specifying the table name
+as a parameter to @Table, like @Table("taco-order") instead */
+@Table
 public class TacoOrder implements Serializable {
     private static final long serialVersionUID = 1L;
+    @Id
     private Long id;
+
+    /* All other properties in TacoOrder will be mapped automatically to columns based on their property names
+    e.g. deliveryName will be mapped to a column called delivery_name.
+    HOWEVER, if you wanted to explicitly define the column name mapping, you would annotate the property with e.g.
+
+    @Column("customer-delivery-name")
+    private String deliveryName;
+    */
     private Date placedAt;
 
     // Delivery Information

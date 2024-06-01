@@ -1,10 +1,8 @@
 package tacos;
 
-import java.util.List;
-import java.util.Optional;
+import org.springframework.data.repository.CrudRepository;
 
-public interface IngredientRepository {
-    List<Ingredient> findAll();
-    Optional<Ingredient> findById(String id);
-    Ingredient save(Ingredient ingredient);
+// CrudRepository offers a dozen or so operations for creating, reading, updating, and deleting objects.
+public interface IngredientRepository extends CrudRepository<Ingredient, String> {
+
 }

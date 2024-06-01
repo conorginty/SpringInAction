@@ -10,6 +10,7 @@ import tacos.Ingredient.Type;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Slf4j /* Same as doing:
        private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(DesignTacoController.class); */
@@ -35,7 +36,7 @@ public class DesignTacoController {
     Ultimately, data that’s placed in Model attributes is copied into the servlet request attributes, where the view
     can find them and use them to render a page in the user’s browser.*/
     public void addIngredientsToModel(Model model) {
-        List<Ingredient> ingredients = ingredientRepository.findAll();
+        Iterable<Ingredient> ingredients = ingredientRepository.findAll();
 
         Type[] types = Type.values();
         /* filters the list by ingredient type using a helper method, and the filtered list of ingredient types is
@@ -45,9 +46,8 @@ public class DesignTacoController {
         }
     }
 
-    private Iterable<Ingredient> filterByType(List<Ingredient> ingredients, Type type) {
-        return ingredients
-            .stream()
+    private Iterable<Ingredient> filterByType(Iterable<Ingredient> ingredients, Type type) {
+        return StreamSupport.stream(ingredients.spliterator(), false)
             .filter(ingredient -> ingredient.getType().equals(type))
             .collect(Collectors.toList());
     }
