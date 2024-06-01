@@ -6,11 +6,17 @@ import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 import org.hibernate.validator.constraints.CreditCardNumber;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date; // The book doesn't specify which library - the 2nd option is to use java.sql's Date class... will change if necessary
 import java.util.List;
 
 @Data
-public class TacoOrder {
+public class TacoOrder implements Serializable {
+    private static final long serialVersionUID = 1L;
+    private Long id;
+    private Date placedAt;
+
     // Delivery Information
 
     @NotBlank(message = "Delivery name is required")

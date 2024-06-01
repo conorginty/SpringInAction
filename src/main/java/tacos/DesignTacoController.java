@@ -8,7 +8,6 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import tacos.Ingredient.Type;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,6 +21,12 @@ an order, and the order we create will need to be carried in the session so that
 @SessionAttributes("tacoOrder")
 public class DesignTacoController {
 
+    private IngredientRepository ingredientRepository;
+
+    public DesignTacoController(IngredientRepository ingredientRepository) {
+        this.ingredientRepository = ingredientRepository;
+    }
+
     // All these methods are invoked when a request is handled (e.g. showDesignForm())
 
     @ModelAttribute
@@ -29,19 +34,8 @@ public class DesignTacoController {
     /* Model is an object that ferries data between a controller and whatever view is charged with rendering that data.
     Ultimately, data that’s placed in Model attributes is copied into the servlet request attributes, where the view
     can find them and use them to render a page in the user’s browser.*/
-    public void addIngredientToModel(Model model) {
-        List<Ingredient> ingredients = Arrays.asList(
-            new Ingredient("FLTO", "Flour Tortilla", Type.WRAP),
-            new Ingredient("COTO", "Corn Tortilla", Type.WRAP),
-            new Ingredient("GRBF", "Ground Beef", Type.PROTEIN),
-            new Ingredient("CARN", "Carnitas", Type.PROTEIN),
-            new Ingredient("TMTO", "Diced Tomatoes", Type.VEGGIES),
-            new Ingredient("LETC", "Lettuce", Type.VEGGIES),
-            new Ingredient("CHED", "Cheddar", Type.CHEESE),
-            new Ingredient("JACK", "Monterrey Jack", Type.CHEESE),
-            new Ingredient("SLSA", "Salsa", Type.SAUCE),
-            new Ingredient("SRCR", "Sour Cream", Type.SAUCE)
-        );
+    public void addIngredientsToModel(Model model) {
+        List<Ingredient> ingredients = ingredientRepository.findAll();
 
         Type[] types = Type.values();
         /* filters the list by ingredient type using a helper method, and the filtered list of ingredient types is
@@ -87,7 +81,7 @@ public class DesignTacoController {
                               @ModelAttribute TacoOrder tacoOrder) {
 
         if (errors.hasErrors()) {
-            showDesignForm();
+            return "design";
         }
 
         log.info("Processing taco: {}", taco);

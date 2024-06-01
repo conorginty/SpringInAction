@@ -16,6 +16,12 @@ import org.springframework.web.bind.support.SessionStatus;
 @SessionAttributes("tacoOrder")
 public class OrderController {
 
+    private OrderRepository orderRepository;
+
+    public OrderController(OrderRepository orderRepository) {
+        this.orderRepository = orderRepository;
+    }
+
     @GetMapping("/current")
     public String showOrderForm() {
         return "orderForm";
@@ -29,9 +35,10 @@ public class OrderController {
                                SessionStatus sessionStatus) {
 
         if (errors.hasErrors()) {
-            showOrderForm();
+            return "orderForm";
         }
 
+        orderRepository.save(tacoOrder);
         log.info("Taco order complete: {}", tacoOrder);
         sessionStatus.setComplete(); // ensures the session is cleaned up and ready for a new order the next time the user creates a taco.
 
