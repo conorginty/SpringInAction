@@ -40,7 +40,6 @@ public class OrderController {
             return "orderForm";
         }
 
-        tacoOrder.setPlacedAt(new Date());
 //        orderRepository.save(tacoOrder);
         log.info("Taco order complete BUT NOT SAVED FOR THE MOMENT DUE TO BUG: {}", tacoOrder);
         sessionStatus.setComplete(); // ensures the session is cleaned up and ready for a new order the next time the user creates a taco.
