@@ -76,6 +76,19 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		<!-- Enabling 3rd party authentication (e.g. via signing in through FB, Twitter etc) so that users can login
+		via the fact they're already logged into one of these other sites. This type of authentication is done via
+		OAuth2 or OpenID Connect (OIDC). OAuth 2 is an authorization specification also often used to secure
+		REST APIs. -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-oauth2-client</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>

@@ -30,6 +30,9 @@ public class TacoOrder implements Serializable {
     */
     private Date placedAt = new Date();
 
+    @ManyToOne // an order belongs to a single user, but a user may have many orders
+    private User user;
+
     // Delivery Information
 
     @NotBlank(message = "Delivery name is required")

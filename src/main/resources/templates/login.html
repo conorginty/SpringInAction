@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"> <head>
+    <title>Taco Cloud</title>
+</head>
+<body>
+    <h1>Login</h1>
+    <img th:src="@{/images/TacoCloud.png}"/>
+    <div th:if="${error}">
+        Unable to login. Check your username and password.
+    </div>
+
+    <p>New here? Click <a th:href="@{/register}">here</a> to register.</p>
+    <!-- In theory, if configured properly, the following link should be usable:
+
+    <a th:href="/oauth2/authorization/facebook">Sign in with Facebook</a>
+    -->
+
+    <!-- The key things to note about this login page are the path it posts to and the names of the username and
+    password fields. By default, Spring Security listens for login requests at /login and expects that the username
+    and password fields be named username and password. This is configurable, however, by customising the java config e.g.:
+
+    .formLogin((form) -> form
+                .loginPage("/login")
+                .loginProcessingUrl("/authenticate")
+                .usernameParameter("og-user")
+                .passwordParameter("og-pwd")
+                .permitAll()
+            );
+
+    As we see above, we specify that Spring Security should listen for requests to /authenticate to handle login submissions.
+    Also, the username and password fields should now be named og-user and og-pwd. -->
+
+    <!-- If you’re using Spring MVC’s JSP tag library or Thymeleaf with the Spring Security dialect, you needn’t even
+    bother explicitly including a hidden field for a CSRF token. The hidden field will be rendered automatically for you.
+    In Thymeleaf, you just need to make sure that one of the attributes of the <form> element is prefixed as a Thymeleaf
+    attribute. That’s usually not a concern, because it’s quite common to let Thymeleaf render the path as context relative.
+    For example, the th:action attribute shown next is all you need for Thymeleaf to render the hidden field for you -->
+    <form method="POST" th:action="@{/login}" id="loginForm">
+        <label for="username">Username: </label>
+        <input type="text" name="username" id="username" />
+        <br/>
+        <label for="password">Password: </label>
+        <input type="password" name="password" id="password" />
+        <br/>
+        <input type="submit" value="Login"/>
+    </form>
+</body>
+</html>
