@@ -2,13 +2,13 @@ package tacos;
 
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import tacos.Ingredient.Type;
 
-import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -89,5 +89,16 @@ public class DesignTacoController {
         log.info("Current taco order: {}", tacoOrder.getTacos());
 
         return "redirect:/orders/current";
+    }
+
+    // Below we inject the value of the property into the variable
+    @Value("${greeting.welcome}")
+    private String welcomeMessage;
+
+    @GetMapping("/welcome")
+    @ResponseBody /* indicates that the return value of the method should be written directly to the HTTP response body,
+                  and not resolved as a view name (so that HTML gets rendered on the resulting page */
+    public String getWelcomeMessage() {
+        return "<h1>" + this.welcomeMessage + "</h1>";
     }
 }

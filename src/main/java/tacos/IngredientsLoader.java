@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import tacos.Ingredient.Type;
 
@@ -17,6 +18,9 @@ public class IngredientsLoader implements ApplicationRunner {
     }
 
     @Override
+    @Profile("dev") /* Only load the ingredient data when the application starts in a dev deployment
+                    OR if you just didn't want production, but you wanted every other deployment to run this:
+                    @Profile("!prod") */
     public void run(ApplicationArguments args) throws Exception {
         repository.save(new Ingredient("FLTO", "Flour Tortilla", Type.WRAP));
         repository.save(new Ingredient("COTO", "Corn Tortilla", Type.WRAP));

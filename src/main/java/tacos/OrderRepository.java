@@ -1,5 +1,6 @@
 package tacos;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
@@ -51,4 +52,6 @@ public interface OrderRepository extends CrudRepository<TacoOrder, Long> {
     want and annotate it with @Query to explicitly specify the query to be performed when the method is called, e.g.: */
     @Query("select deliveryName from TacoOrder where deliveryCity = 'Seattle'")
     List<TacoOrder> readOrdersDeliveredInSeattle();
+
+    List<TacoOrder> findByUserOrderByPlacedAtDescFirstXResults(User user, Pageable pageable);
 }
