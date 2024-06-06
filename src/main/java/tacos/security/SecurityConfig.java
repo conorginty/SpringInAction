@@ -41,6 +41,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
+            .csrf().disable() // Needed for the moment to create new taco resources with POST.
             .authorizeHttpRequests(requests -> requests
                 .requestMatchers("/design", "/orders").hasRole("USER")
                 .anyRequest().permitAll()

@@ -53,5 +53,5 @@ public interface OrderRepository extends CrudRepository<TacoOrder, Long> {
     @Query("select deliveryName from TacoOrder where deliveryCity = 'Seattle'")
     List<TacoOrder> readOrdersDeliveredInSeattle();
 
-    List<TacoOrder> findByUserOrderByPlacedAtDescFirstXResults(User user, Pageable pageable);
+    List<TacoOrder> findByUserOrderByPlacedAtDesc(User user, Pageable pageable);
 }
