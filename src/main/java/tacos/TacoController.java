@@ -40,7 +40,7 @@ public class TacoController {
     }
 
     @GetMapping
-    public List<Taco> getTacoById() {
+    public List<Taco> getAllTacos() {
         return tacoRepository.findAll();
     }
 

@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
+import org.springframework.data.rest.core.annotation.RestResource;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -11,6 +12,10 @@ import java.util.List;
 
 @Data
 @Entity
+/* @RestResource lets you give the entity any relation name and path you want, thus overriding the default path name
+that the REST starter package gave us of: "http://localhost:8080/data-api/tacoes{?page,size,sort}"
+(Note the plural of taco defaulted to "tacoes" as opposed to "tacos")*/
+@RestResource(rel="tacos", path="tacos")
 public class Taco {
 
     @Id

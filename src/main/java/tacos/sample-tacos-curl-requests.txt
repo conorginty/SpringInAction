@@ -4,3 +4,44 @@ curl --request POST --header "Content-Type: application/json" --data '{"id":10,"
 curl --request PUT --header "Content-Type: application/json" --data '{"id":10,"createdAt":"2024-06-06T05:59:52.145+00:00","name":"CREATED or UPDATED order name for ID 3 using PUT","ingredients":[{"id":"FLTO","name":"Flour Tortilla","type":"WRAP"},{"id":"COTO","name":"Corn Tortilla","type":"WRAP"},{"id":"TMTO","name":"Diced Tomatoes","type":"VEGGIES"},{"id":"LETC","name":"Lettuce","type":"VEGGIES"},{"id":"SLSA","name":"Salsa","type":"SAUCE"}]}' http://localhost:8080/api/tacos/3
 curl --request PATCH --header "Content-Type: application/json" --data '{"name":"PATCHED Taco Name for id of 1","ingredients":[{"id":"FLTO","name":"Flour Tortilla","type":"WRAP"},{"id":"COTO","name":"Corn Tortilla","type":"WRAP"}]}' http://localhost:8080/api/tacos/1
 curl --request DELETE http://localhost:8080/api/tacos/1
+
+Sample Curl request to get Ingredients represented as HATEOS objects, just by including the Spring Data REST starter dependency:
+
+Straight out of the box, you can do curl commands like the following to interact with the app:
+curl localhost:8080/ingredients
+
+But I have set the base-path in the app.props file to prevent prospective collisions, so now the curl commands must look like below:
+curl localhost:8080/data-api/ingredients
+
+A client consuming the above API could (optionally) use these hyperlinks as a guide for navigating the API and performing the next request.
+
+Sample output (has hyperlinks):
+{
+  "_embedded" : {
+    "ingredients" : [ {
+      "name" : "Flour Tortilla",
+      "type" : "WRAP",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/ingredients/FLTO"
+        },
+        "ingredient" : {
+          "href" : "http://localhost:8080/ingredients/FLTO"
+        }
+      }
+    },
+    ...
+    "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/ingredients"
+        },
+        "profile" : {
+          "href" : "http://localhost:8080/profile/ingredients"
+        }
+      }
+    }
+
+You can POST to /ingredients to create a new ingredient and DELETE /ingredients/FLTO to remove flour tortillas from the menu.
+
+curl "localhost:8080/data-api/tacos?size=1&page=0"
+curl "localhost:8080/data-api/tacos?sort=createdAt,desc&page=0&size=12"

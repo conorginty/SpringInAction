@@ -86,6 +86,16 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-oauth2-client</artifactId>
 		</dependency>
+		<!-- Spring Data REST is another member of the Spring Data family that automatically creates REST APIs for
+		repositories created by Spring Data. By adding Spring Data REST to my build, I get an API with operations
+		for each repository interface I’ve defined. -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-rest</artifactId>
+		</dependency>
+		<!-- By simply having the Spring Data REST starter in the build, the application gets autoconfiguration that
+		enables automatic creation of a REST API for any repositories that were created by Spring Data (e.g.
+		Spring Data JPA, Spring Data Mongo etc) -->
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
